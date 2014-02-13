@@ -23,7 +23,7 @@ class Game(db.Model):
     softwarelist  = db.relationship("Softwarelist",  backref="game")
     control =       db.relationship("Control",       backref="game")
 
-    name = db.Column(db.String(25))
+    name = db.Column(db.String(40))
     sourcefile = db.Column(db.String(40))
     isbios = db.Column(yn_bool, default="no")
     isdevice = db.Column(yn_bool, default="no")
@@ -147,7 +147,7 @@ class Dipswitch(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     game_id = db.Column(db.Integer, db.ForeignKey(Game.id))
     dipvalue = db.relationship("Dipvalue", backref="dipswitch")
-    name = db.Column(db.String(52))
+    name = db.Column(db.String(128))
     tag = db.Column(db.String(13))
     mask = db.Column(db.String(10))
 
@@ -155,7 +155,7 @@ class Dipvalue(db.Model):
     __tablename__ = "dipvalue"
     id = db.Column(db.Integer, primary_key=True)
     dipswitch_id = db.Column(db.Integer, db.ForeignKey(Dipswitch.id))
-    name = db.Column(db.String(86))
+    name = db.Column(db.String(128))
     value = db.Column(db.String(10))
     default = db.Column(yn_bool, default="no")
 
@@ -164,7 +164,7 @@ class Configuration(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     game_id = db.Column(db.Integer, db.ForeignKey(Game.id))
     confsetting = db.relationship("Confsetting", backref="configuration")
-    name = db.Column(db.String(30))
+    name = db.Column(db.String(128))
     tag = db.Column(db.String(15))
     mask = db.Column(db.String(6))
 
@@ -172,7 +172,7 @@ class Confsetting(db.Model):
     __tablename__ = "confsetting"
     id = db.Column(db.Integer, primary_key=True)
     configuration_id = db.Column(db.Integer, db.ForeignKey(Configuration.id))
-    name = db.Column(db.String(44))
+    name = db.Column(db.String(128))
     value = db.Column(db.String(6))
     default = db.Column(yn_bool, default="no")
 
@@ -180,15 +180,15 @@ class Adjuster(db.Model):
     __tablename__ = "adjuster"
     id = db.Column(db.Integer, primary_key=True)
     game_id = db.Column(db.Integer, db.ForeignKey(Game.id))
-    name = db.Column(db.String(3))
+    name = db.Column(db.String(15))
     default = db.Column(db.String(30))
 
 class Device(db.Model):
     __tablename__ = "device"
     id = db.Column(db.Integer, primary_key=True)
     game_id = db.Column(db.Integer, db.ForeignKey(Game.id))
-    name = db.Column(db.String(10))
-    briefname = db.Column(db.String(5))
+    name = db.Column(db.String(15))
+    briefname = db.Column(db.String(10))
     extension = db.relationship("Extension")
     type = db.Column(db.String(9))
     tag = db.Column(db.String(24))
@@ -199,20 +199,20 @@ class Extension(db.Model):
     __tablename__ = "extension"
     id = db.Column(db.Integer, primary_key=True)
     device_id = db.Column(db.Integer, db.ForeignKey(Device.id))
-    name = db.Column(db.String(3))
+    name = db.Column(db.String(5))
 
 class Slot(db.Model):
     __tablename__ = "slot"
     id = db.Column(db.Integer, primary_key=True)
     game_id = db.Column(db.Integer, db.ForeignKey(Game.id))
     slotoption = db.relationship("Slotoption")
-    name = db.Column(db.String(8))
+    name = db.Column(db.String(15))
 
 class Slotoption(db.Model):
     __tablename__ = "slotoption"
     id = db.Column(db.Integer, primary_key=True)
     slot_id = db.Column(db.Integer, db.ForeignKey(Slot.id))
-    name = db.Column(db.String(8))
+    name = db.Column(db.String(15))
     devname = db.Column(db.String(15))
     default = db.Column(yn_bool, default="no")
 
@@ -220,7 +220,7 @@ class Softwarelist(db.Model):
     __tablename__ = "softwarelist"
     id = db.Column(db.Integer, primary_key=True)
     game_id = db.Column(db.Integer, db.ForeignKey(Game.id))
-    name = db.Column(db.String(8))
+    name = db.Column(db.String(15))
     status = db.Column(db.Enum("original", "compatible", name="softwarelist_status"))
     filter = db.Column(db.String(25))
     default = db.Column(db.String(25))
