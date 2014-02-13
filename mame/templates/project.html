@@ -1,0 +1,57 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-10 col-lg-offset-1 col-md-12">
+                <div class="jumbotron">
+                    <h1>The MAME Index Project</h1>
+                    <p>
+                        This project was started to give me an easy way to query the current mame game database for
+                        information on supported games, with different features sets. I am in the process of building
+                        a full size arcade machine to play with my friends, and needed to know how many buttons, what
+                        types of joysticks, and how many of what type I needed in order to comfortably play all my
+                        favorite games on one control panel. It then grew into a more generic system for full searching
+                        the mame database. Due to the huge amount of games that mame supports (whether working or not),
+                        There are thousands of ways to query this data, and find the games you are looking for.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-8 col-md-10 col-lg-offset-2 col-md-offset-1">
+                <p>
+                    This project is fully open source, down to MAME itself. Fork us on GitHub at
+                    <a href="http://github.com/KageUrufu/mamedb">http://github.com/KageUrufu/mamedb</a>
+                </p>
+                <p>
+                    Go ahead, run your own copy, make changes, have fun. This project is GPL v2, so just share your
+                    (awesome) work with the world!
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 col-md-5 col-lg-offset-2 col-md-offset-2">
+                <h2>Changelog</h2>
+                <ul class="list-unstyled">
+                    <li>Added massive advanced search</li>
+                    <li>Search function</li>
+                    <li>Random game feature</li>
+                    <li>Game detail page</li>
+                    <li>Game index</li>
+                    <li>Basic search queries</li>
+                    <li>Working XML -> SQL import script</li>
+                </ul>
+            </div>
+            <div class="col-lg-4 col-md-5">
+                <h2>ToDo</h2>
+                <ul>
+                    <li>Reporting features</li>
+                    <li>Control recommendations, based on your favorite games</li>
+                    <li>Anything we feel like</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

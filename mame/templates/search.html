@@ -1,0 +1,159 @@
+{% extends 'layout.html' %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block content %}
+<div class="container-fluid" id="advanced-search">
+    <form class="form-horizontal" method="get" action="/search">
+    <fieldset>
+        <legend>Advanced Search</legend>
+
+        <div class="form-group">
+            <div class="col-lg-4 col-md-4">
+                {{ wtf.form_field(form.name, 'horizontal', ('lg', 4, 8)) }}
+            </div>
+            <div class="col-lg-4 col-md-4">
+                {{ wtf.form_field(form.description, 'horizontal', ('lg', 4, 8)) }}
+            </div>
+            <div class="col-lg-4 col-md-4">
+                {{ wtf.form_field(form.manufacturer, 'horizontal', ('lg', 4, 8)) }}
+            </div>
+            <div class="col-lg-2 col-md-3">
+                {{ form.year.label(class="control-label") }}
+                {{ form.year(class="form-control") }}
+            </div>
+            <div class="col-lg-2 col-md-3">
+            {{ form.status.label(class="control-label") }}
+            {{ form.status(class="form-control") }}
+            </div>
+            <div class="col-lg-2 col-md-3">
+            {{ form.emulation.label(class="control-label") }}
+            {{ form.emulation(class="form-control") }}
+            </div>
+            <div class="col-lg-2 col-md-3">
+            {{ form.color.label(class="control-label") }}
+            {{ form.color(class="form-control") }}
+            </div>
+            <div class="col-lg-2 col-md-3">
+            {{ form.sound.label(class="control-label") }}
+            {{ form.sound(class="form-control") }}
+            </div>
+            <div class="col-lg-2 col-md-3">
+            {{ form.graphic.label(class="control-label") }}
+            {{ form.graphic(class="form-control") }}
+            </div>
+            <div class="col-lg-2 col-md-3">
+            {{ form.cocktail.label(class="control-label") }}
+            {{ form.cocktail(class="form-control") }}
+            </div>
+            <div class="col-lg-2 col-md-3">
+            {{ form.protection.label(class="control-label") }}
+            {{ form.protection(class="form-control") }}
+            </div>
+            <div class="col-lg-2 col-md-3">
+            {{ form.savestate.label(class="control-label") }}
+            {{ form.savestate(class="form-control") }}
+            </div>
+            <div class="col-lg-2 col-md-2">
+                {{ form.type.label(class='control-label') }}
+                {{ form.type(class='form-control') }}
+            </div>
+            <div class="col-lg-2 col-md-2">
+                {{ form.players.label(class='control-label') }}
+                {{ form.players(class='form-control') }}
+            </div>
+            <div class="col-lg-2 col-md-2">
+                {{ form.buttons.label(class='control-label') }}
+                {{ form.buttons(class='form-control') }}
+            </div>
+            <div class="col-lg-2 col-md-2" data-toggle="tooltip" title="As games may have multiple controls, this only shows games where at least one of it's control types is as selected">
+                <span class="text-warning">
+                    {{ form.control_type.label(class='control-label') }}?
+                </span>
+                {{ form.control_type(class='form-control') }}
+            </div>
+            <div class="col-lg-2 col-md-2" data-toggle="tooltip" title="As games have multiple roms, this shows games where at least one of their roms is of the status">
+                <span class="text-warning">
+                    {{ form.rom_status.label(class='control-label') }}?
+                </span>
+                {{ form.rom_status(class='form-control') }}
+            </div>
+            <div class="col-lg-2 col-md-2">
+                {{ form.cloneof.label(class="control-label") }}
+                {{ form.cloneof(class='form-control') }}
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-lg-4 col-lg-offset-8 col-md-6 col-md-offset-6">
+                <button type="submit" class="btn btn-primary">Search</button>
+            </div>
+        </div>
+    </fieldset>
+    </form>
+</div>
+{% if results %}
+<div class="container-fluid">
+    <div class="row text-center">
+        <h3>{{ results.total }} results found</h3>
+        <ul class="pagination">
+        {% for page in results.iter_pages() %}
+            {% if page %}
+                <li class="{{ "active" if page == results.page }}">
+                    <a href="{{ url_for("search", page=page, **form.data) }}">{{ page }}</a>
+                </li>
+            {% else %}
+                <li class="disabled"><a href="#">...</a></li>
+            {% endif %}
+        {% endfor %}
+        </ul>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12 col-md-12">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th width="10%">Rom Name</th>
+                    <th width="40%">Description</th>
+                    <th width="10%">Year</th>
+                    <th width="30%">Manufacturer</th>
+                    <th width="10%">Working?</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for game in results.items %}
+                    <tr>
+                        <td>
+                            <a href="{{ url_for("game", game_name=game.name) }}">
+                            {{ game.name }}
+                            </a>
+                        </td>
+                        <td>
+                            <a href="{{ url_for("game", game_name=game.name) }}">
+                            {{ game.description }}
+                            </a>
+                        </td>
+                        <td>
+                            <a href="{{ url_for("game", game_name=game.name) }}">
+                            {{ game.year }}
+                            </a>
+                        </td>
+                        <td>
+                            <a href="{{ url_for("game", game_name=game.name) }}">
+                            {{ game.manufacturer }}
+                            </a>
+                        </td>
+                        <td>
+                            <a href="{{ url_for("game", game_name=game.name) }}">
+                            {{ game.runnable }}
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+{% endblock %}

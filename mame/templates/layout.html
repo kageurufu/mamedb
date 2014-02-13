@@ -1,0 +1,45 @@
+{% extends "bootstrap/base.html" %}
+{% import "bootstrap/fixes.html" as fixes %}
+
+{% block metas %}
+    {{ super() }}
+    <link type="image/png" rel="icon" href="/static/favicon.png"/>
+{% endblock %}
+
+{% block head %}
+    {{ super() }}
+    {{ fixes.ie8() }}
+{% endblock %}
+
+{% block title %}MAME Game Indexer{% endblock %}
+
+{% block navbar %}
+    <div class="navbar navbar-default navbar-fixed top" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="sr-only">Toggle Navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">Mame Index</a>
+            </div>
+
+            <div class="collapse navbar-collapse" id="navbar-collapse">
+                <ul class="nav navbar-nav navbar-left">
+                    <li><a href="/game">Game Index</a></li>
+                    <li><a href="/random">Random Game</a></li>
+                    <li><a href="/project">The Project</a></li>
+                </ul>
+
+                <form class="navbar-form navbar-right" action="/search">
+                    <div class="form-group">
+                        <input class="form-control" name="description" placeholder="Search" type="text"/>
+                    </div>
+                    <button type="submit" class="btn btn-default">Search</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

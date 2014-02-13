@@ -1,0 +1,92 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row text-center">
+        <ul class="pagination">
+            <li><a href="/game">All</a></li>
+            {% for i in '#ABCDEFGHIJKLMNOPQRSTUVWXYZ' %}
+                <li class="{{ "active" if request.args.get("letter") == i }}">
+                    <a href="/game?letter={{ i|urlencode }}">{{ i }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="row text-center">
+        <ul class="pagination">
+        {% for page in games.iter_pages() %}
+            {% set url = "/game?letter=%s&page=" % request.args.get('letter', '') %}
+            {% if page %}
+                <li class="{{ "active" if page == games.page }}">
+                    <a href="{{ url }}{{ page }}">{{ page }}</a>
+                </li>
+            {% else %}
+                <li class="disabled"><a href="#">...</a></li>
+            {% endif %}
+        {% endfor %}
+        </ul>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12 col-md-12">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th width="10%">Rom Name</th>
+                    <th width="40%">Description</th>
+                    <th width="10%">Year</th>
+                    <th width="30%">Manufacturer</th>
+                    <th width="10%">Working?</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for game in games.items %}
+                    <tr>
+                        <td>
+                            <a href="{{ url_for("game", game_name=game.name) }}">
+                            {{ game.name }}
+                            </a>
+                        </td>
+                        <td>
+                            <a href="{{ url_for("game", game_name=game.name) }}">
+                            {{ game.description }}
+                            </a>
+                        </td>
+                        <td>
+                            <a href="{{ url_for("game", game_name=game.name) }}">
+                            {{ game.year }}
+                            </a>
+                        </td>
+                        <td>
+                            <a href="{{ url_for("game", game_name=game.name) }}">
+                            {{ game.manufacturer }}
+                            </a>
+                        </td>
+                        <td>
+                            <a href="{{ url_for("game", game_name=game.name) }}">
+                            {{ game.runnable }}
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="row text-center">
+        <ul class="pagination">
+        {% for page in games.iter_pages() %}
+            {% set url = "/game?letter=%s&page=" % request.args.get('letter', '') %}
+            {% if page %}
+                <li>
+                    <a href="{{ url }}{{ page }}">{{ page }}</a>
+                </li>
+            {% else %}
+                <li class="disabled"><a href="#">...</a></li>
+            {% endif %}
+        {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock %}

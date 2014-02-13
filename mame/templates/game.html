@@ -1,0 +1,108 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-12 col-md-12">
+            <h1>
+                {{ game.description|title }}
+                <small>
+                    {{ game.name }}
+                    {% if game.cloneof %}
+                        - clone of <a href="{{ url_for("game", game_name=game.cloneof) }}">{{ game.cloneof }}</a>
+                    {% endif %}
+                </small>
+            </h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3 col-md-3">
+            <h2>Input</h2>
+            <ul class="list-unstyled">
+                <li>{{ game.players }} Players</li>
+                <li>{{ game.buttons }} Buttons</li>
+            {% for control in game.control %}
+                <li>{{ (control.ways + " way") if control.ways }} {{ control.type|title }}</li>
+            {% endfor %}
+            </ul>
+        </div>
+        <div class="col-lg-3 col-md-3">
+            <h2>Display</h2>
+            <ul class="list-unstyled">
+            {% for display in game.display %}
+                <li><strong>{{ display.tag|title }}</strong></li>
+                <li>{{ display.type|title }} at {{ display.width }}x{{ display.height }} {{ 'rotated %s°' % display.rotate if display.rotate != 0 }}</li>
+            {% endfor %}
+            </ul>
+        </div>
+        <div class="col-lg-3 col-md-3">
+            <h2>Emulation Status</h2>
+            <dl class="dl-horizontal">
+                <dt>Overall status</dt>
+                <dd>{{ game.status }}</dd>
+                <dt>Emulation status</dt>
+                <dd>{{ game.emulation }}</dd>
+                <dt>Color status</dt>
+                <dd>{{ game.color }}</dd>
+                <dt>Sound status</dt>
+                <dd>{{ game.sound }}</dd>
+                <dt>Graphics status</dt>
+                <dd>{{ game.graphics }}</dd>
+                {% if game.cocktail %}
+                <dt>Cocktail support</dt>
+                <dd>{{ game.cocktail }}</dd>
+                {% endif %}
+                {% if game.protection %}
+                <dt>Protection support</dt>
+                <dd>{{ game.protection }}</dd>
+                {% endif %}
+            </dl>
+
+        </div>
+        <div class="col-lg-3 col-md-3 text-center">
+            <a href="{{ config['STATIC_URL'] or url_for("static", filename="") }}images/titles/{{ game.name }}.png">
+            <img class="img-thumbnail" src="{{ config['STATIC_URL'] or url_for("static", filename="") }}images/titles/{{ game.name }}.png" alt=""/>
+            </a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 col-md-12">
+            <h3>Roms and Disks</h3>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Size</th>
+                    <th>Merge</th>
+                    <th>SHA1</th>
+                    <th>Dump Status</th>
+                    <th>Optional</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for rom in game.rom %}
+                    <tr>
+                        <td>{{ rom.name }}</td>
+                        <td>{{ rom.size|filesizeformat }}</td>
+                        <td>{{ rom.merge }}</td>
+                        <td>{{ rom.sha1 }}</td>
+                        <td>{{ rom.status }}</td>
+                        <td>{{ rom.optional }}</td>
+                    </tr>
+                {% endfor %}
+                {% for disk in game.disk %}
+                    <tr>
+                        <td>{{ disk.name }}</td>
+                        <td>{{ 'Writeable' if disk.writable == 'yes' }} disk</td>
+                        <td>{{ disk.merge }}</td>
+                        <td>{{ disk.sha1 }}</td>
+                        <td>{{ disk.status }}</td>
+                        <td>{{ disk.optional }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

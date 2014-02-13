@@ -1,0 +1,70 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-lg-10 col-md-12 col-lg-offset-1">
+            <h1>The MAME Game Indexer <small>with search</small></h1>
+            <p>
+                This project was started to allow easy and detailed searching of the MAME game index. Currently, we have
+                <strong>{{ count }}</strong> games available for searching
+            </p>
+            <p>
+                We have made this possible using the output of mame -listxml, run through several
+                import scripts, which can now easily import and update the database to show the most recent information
+                for all games
+            </p>
+        </div>
+    </div>
+    </div>
+</div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <h1>10 random games</h1>
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Rom Name</th>
+                        <th>Description</th>
+                        <th>Year</th>
+                        <th>Manufacturer</th>
+                        <th>Working?</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for game in games %}
+                        <tr>
+                            <td>
+                                <a href="{{ url_for("game", game_name=game.name) }}">
+                                {{ game.name }}
+                                </a>
+                            </td>
+                            <td>
+                                <a href="{{ url_for("game", game_name=game.name) }}">
+                                {{ game.description }}
+                                </a>
+                            </td>
+                            <td>
+                                <a href="{{ url_for("game", game_name=game.name) }}">
+                                {{ game.year }}
+                                </a>
+                            </td>
+                            <td>
+                                <a href="{{ url_for("game", game_name=game.name) }}">
+                                {{ game.manufacturer }}
+                                </a>
+                            </td>
+                            <td>
+                                <a href="{{ url_for("game", game_name=game.name) }}">
+                                {{ game.runnable }}
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
