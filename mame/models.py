@@ -180,7 +180,7 @@ class Adjuster(db.Model):
     __tablename__ = "adjuster"
     id = db.Column(db.Integer, primary_key=True)
     game_id = db.Column(db.Integer, db.ForeignKey(Game.id))
-    name = db.Column(db.String(15))
+    name = db.Column(db.String(30))
     default = db.Column(db.String(30))
 
 class Device(db.Model):
