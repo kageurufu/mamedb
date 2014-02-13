@@ -77,7 +77,7 @@ def search(page=1):
     form.validate()
 
     query = models.Game.query
-    
+
     if form.year.data != '':
         query = query.filter(models.Game.year == form.year.data)
     if form.name.data != '':
