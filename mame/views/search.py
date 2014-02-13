@@ -76,9 +76,8 @@ def search(page=1):
 
     form.validate()
 
-    print(form.data)
-
     query = models.Game.query
+    
     if form.year.data != '':
         query = query.filter(models.Game.year == form.year.data)
     if form.name.data != '':
@@ -123,7 +122,7 @@ def search(page=1):
         query = query.filter(models.Game.control.any(models.Control.type==form.control_type.data))
     if form.rom_status.data != '':
         query = query.filter(models.Game.rom.any(models.Rom.status==form.rom_status.data))
-        print(query)
 
     results = query.paginate(page=page, per_page=25)
+
     return render_template("search.html", form=form, results=results)
