@@ -17,13 +17,9 @@ def gameindex():
     return render_template("gameindex.html", games=games)
 
 @app.route("/game/<game_name>")
-@app.route("/game/<int:game_id>")
-def game(game_name = None, game_id = None):
+def game(game_name = None):
     query = models.Game.query
-    if game_id:
-        game = query.get_or_404(game_id)
-    else:
-        game = query.filter_by(name = game_name).first_or_404()
+    game = query.filter_by(name = game_name).first_or_404()
     return render_template("game.html", game=game)
 
 @app.route("/random")
