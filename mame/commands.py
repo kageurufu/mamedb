@@ -1,6 +1,6 @@
 from lxml import etree
 from . import models, db
-from flask.ext.script import Command, Option
+from flask.ext.script import Command, Option, prompt_bool
 
 modelmap = {
     'biosset': models.Biosset,
@@ -84,3 +84,18 @@ class Import(Command):
         db.session.commit()
         del mame
         print("Import complete, %s games imported total" % g)
+
+class SetupDB(Command):
+    option_list = (
+        Option("-y", "--yes", action="store_true", help="Don't verify before recreating the database")
+    )
+
+    def run(self, yes):
+        if not yes:
+            if not prompt_bool("Are you sure, this will erase all information in the database", default=False):
+                return 0
+        print("Dropping all tables")
+        db.drop_all()
+        print("Creating the blank database")
+        db.create_all()
+        print("Database created, you may now import your list.xml")
