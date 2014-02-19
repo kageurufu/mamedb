@@ -25,7 +25,7 @@ class SearchForm(Form):
 
     type = SelectField("ROM Type", validators=[Optional()], choices=[(c,c) for c in ['All', 'Bios', 'Device', 'Mechanical']])
 
-    cloneof = SelectMultipleField("Show Clones?", default='Yes', validators=[Optional()], choices=[('Yes', 'Yes'), ('No', 'No')])
+    cloneof = SelectField("Show Clones?", default='Yes', validators=[Optional()], choices=[('Yes', 'Yes'), ('No', 'No')])
 
     rom_status = SelectMultipleField("Rom Status", choices=enum_dump_status, validators=[Optional()], default='')
     
