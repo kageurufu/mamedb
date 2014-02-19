@@ -17,6 +17,8 @@
             <div class="col-lg-4 col-md-4">
                 {{ wtf.form_field(form.manufacturer, 'horizontal', ('lg', 4, 8)) }}
             </div>
+        </div>
+        <div class="form-group">
             <div class="col-lg-2 col-md-3">
                 {{ form.year.label(class="control-label") }}
                 {{ form.year(class="form-control") }}
@@ -41,6 +43,8 @@
             {{ form.graphic.label(class="control-label") }}
             {{ form.graphic(class="form-control") }}
             </div>
+        </div>
+        <div class="form-group">
             <div class="col-lg-2 col-md-3">
             {{ form.cocktail.label(class="control-label") }}
             {{ form.cocktail(class="form-control") }}
@@ -65,6 +69,8 @@
                 {{ form.buttons.label(class='control-label') }}
                 {{ form.buttons(class='form-control') }}
             </div>
+        </div>
+        <div class="form-group">
             <div class="col-lg-2 col-md-2" data-toggle="tooltip" title="As games may have multiple controls, this only shows games where at least one of it's control types is as selected">
                 <span class="text-warning">
                     {{ form.control_type.label(class='control-label') }}?
@@ -80,6 +86,10 @@
             <div class="col-lg-2 col-md-2">
                 {{ form.cloneof.label(class="control-label") }}
                 {{ form.cloneof(class='form-control') }}
+            </div>
+            <div class="col-lg-2 col-md-2">
+                {{ form.rotation.label(class='control-label') }}
+                {{ form.rotation(class='form-control') }}
             </div>
         </div>
         <div class="form-group">

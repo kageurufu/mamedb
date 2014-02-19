@@ -4,6 +4,8 @@
 {% block metas %}
     {{ super() }}
     <link type="image/png" rel="icon" href="/static/favicon.png"/>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/select2/3.4.5/select2.min.css"/>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/select2/3.4.5/select2-bootstrap.css"/>
 {% endblock %}
 
 {% block head %}
@@ -42,4 +44,12 @@
             </div>
         </div>
     </div>
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/select2/3.4.5/select2.min.js"></script>
+    <script>
+    $("select[multiple]").select2();
+    </script>
 {% endblock %}
